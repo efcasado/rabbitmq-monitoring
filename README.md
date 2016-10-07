@@ -4,6 +4,15 @@ Simple example that illustrates how to configure CollectD to monitor the
 activity of a RabbitMQ node.
 
 
+### Technology stack
+
+- [Docker](https://www.docker.com/)
+- [CollectD](https://collectd.org/)
+- [CollectD's RabbitMQ plugin](https://github.com/NYTimes/collectd-rabbitmq)
+- [CollectD's Graphite plugin](https://collectd.org/wiki/index.php/Plugin:Write_Graphite)
+- [Graphite](https://graphiteapp.org/)
+
+
 ### Usage
 
 ```bash
