@@ -1,0 +1,56 @@
+###=========================================================================
+### File: Dockerfile
+###
+### Author(s):
+###   - Enrique Fernandez <efcasado@gmail.com>
+###=========================================================================
+version: '2'
+
+services:
+  graphite:
+    image: efcasado/graphite
+    ports:
+      - 8080:8080
+    networks:
+      rabbitmq-monitoring:
+        aliases:
+          - graphite
+  
+  rabbitmq:
+    image: rabbitmq:3.6.5-management
+    ports:
+      - 8888:15672
+    networks:
+      rabbitmq-monitoring:
+        aliases:
+          - rabbitmq
+
+  sender:
+    build: ./Dockerfiles/python
+    volumes:
+      - ./volumes/python/code:/code
+    working_dir: /code
+    entrypoint: python
+    command: send.py
+    networks:
+      - rabbitmq-monitoring
+    depends_on:
+      - rabbitmq
+    restart: always
+          
+  collectd:
+    build: ./Dockerfiles/collectd/
+    volumes:
+      - ./volumes/collectd/etc/collectd:/etc/collectd
+      - ./volumes/collectd/usr/share/collectd:/usr/share/collectd
+    networks:
+      rabbitmq-monitoring:
+        aliases:
+          - collectd
+    depends_on:
+      - graphite
+      - rabbitmq
+
+networks:
+  rabbitmq-monitoring:
+    driver: bridge      
