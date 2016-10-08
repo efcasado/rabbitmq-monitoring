@@ -11,6 +11,7 @@ activity of a RabbitMQ node.
 - [CollectD's RabbitMQ plugin](https://github.com/NYTimes/collectd-rabbitmq)
 - [CollectD's Graphite plugin](https://collectd.org/wiki/index.php/Plugin:Write_Graphite)
 - [Graphite](https://graphiteapp.org/)
+- [Grafana](http://grafana.org/)
 
 
 ### Usage
@@ -19,7 +20,8 @@ activity of a RabbitMQ node.
 make build up
 ```
 
-Point your browser to **localhost:8080**.
+Point your browser to **localhost:8080** (Graphite), or to
+**localhost:3000** (Grafana).
 
 > You probably want to adjust Graphite to show only the past few minutes
 > of data. Otherwise, it may be difficult to see any activity in the
