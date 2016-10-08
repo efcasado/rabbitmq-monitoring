@@ -64,6 +64,21 @@ services:
     depends_on:
       - rabbitmq
     restart: always
+
+  receiver:
+    build: ./Dockerfiles/python
+    environment:
+      - "RABBITMQ_QUEUES=foo,bar"
+    volumes:
+      - ./volumes/python/code:/code
+    working_dir: /code
+    entrypoint: python
+    command: receive.py
+    networks:
+      - rabbitmq-monitoring
+    depends_on:
+      - rabbitmq
+    restart: always
     
   collectd:
     build: ./Dockerfiles/collectd/
